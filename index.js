@@ -10,10 +10,10 @@ const clientOptions = {
     ignoreSelf: true
 };
 const commandOptions = {
-	description: 'a custom bot',
-	name: 'User-song',
+	description: 'a custom bot to play a certain song every time a user joins a VC (links songs to users)',
+	name: 'User-song-link',
 	owner: 'Liscuate',
-	prefix: ['@mention', '!'],
+	prefix: ['@mention', prefix],
 };
 
 const bot = new eris.CommandClient(token, clientOptions, commandOptions);
@@ -25,6 +25,9 @@ bot.on('ready', async () => { // When the bot is ready
 	await loadEvents('./events');
     await loadDB(bot);
 	await checkDBSettings(bot);
+	enSureSongsDirExists();
+	// let doc = await bot.db.settings.findOne({});
+	// console.log(doc.users.length)
 });
 
 async function loadDB(bot){
@@ -35,6 +38,19 @@ async function loadDB(bot){
 	
 	await bot.db.settings.load();
 	return console.log('Connected to DB!');
+}
+async function enSureSongsDirExists(){
+	fs.access('./songs', fs.constants.F_OK, (err) => {
+		if(err){
+			fs.mkdir("./songs", function(err) {
+				if (err) {
+				  console.log(err)
+				} else {
+				  console.log("Created empty songs directory!")
+				}
+			  })
+		}
+	  });
 }
 
 async function loadEvents(dir){

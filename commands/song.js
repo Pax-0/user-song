@@ -7,6 +7,13 @@ const Axios = require('axios');
 module.exports.generator = async (msg, args) => {
     const user = resolveUser(args.join(' '), msg.channel.guild);
     if(!user) return msg.channel.createMessage('Couldnt find that user.');
+
+    let settings = await bot.db.settings.findOne({});
+    let linkedSong = settings.users.find(element => element.linkedTo === user.id);
+    if(linkedSong){
+      // if there is already a song linked to a user, remove it so this command acts like a toggle.
+      await bot.db.settings.update({}, { $pull: { users: linkedSong } }, {});
+    }
     if(!msg.attachments.length || !msg.attachments[0].filename.endsWith('.mp3')) return msg.channel.createMessage('Please attach an mp3 song to your message.');
     let sent = await msg.channel.createMessage('Saving song....');
     try {
