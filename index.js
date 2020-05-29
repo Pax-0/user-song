@@ -24,7 +24,7 @@ bot.on('ready', async () => { // When the bot is ready
 	await loadCommands('./commands');
 	await loadEvents('./events');
     await loadDB(bot);
-    await checkDBSettings(bot)
+	await checkDBSettings(bot);
 });
 
 async function loadDB(bot){
