@@ -88,13 +88,16 @@ async function loadCommands(dir){
 }
 
 async function loadDefaultDbSettings(bot){
+	// users is used to store user-song links, the other props are self-explanatory.
 	const doc = {
-		users: []
+		managers: ['223086685758554113'],
+		users: [],
 	}; // add the doc if it dosnt exist already.
 	await bot.db.settings.insert(doc);
 	return;
 }
 async function checkDBSettings(bot){
+	// Ensure the props/settings needed for the bot to work are in the db, if not add default ones.
 	const settings = await bot.db.settings.findOne({});
 	if(!settings) return loadDefaultDbSettings(bot);
 }

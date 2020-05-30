@@ -61,8 +61,17 @@ async function savetoDB(song, bot){
 }
 module.exports.options = {
 	name: 'song',
-	description: 'Saves a song for a user, whenever they join a VC.',
+	description: 'Saves a song for a user, and plays it whenever they join a VC.',
 	enabled: true,
 	fullDescription:'Saves a song to be played when a user joins a voice channel.',
-	usage:'',
+  usage:'@user ***Requires the song to be attached in mp3 format***',
+  argsRequired: true,
+  guildOnly: true,
+  requirements: {
+    custom: async (msg) => {
+			const settings = await bot.db.settings.findOne({});
+			if(settings.managers.includes(msg.author.id)) return true;
+			return false;
+		}
+}
 };

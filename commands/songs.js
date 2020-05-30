@@ -1,7 +1,4 @@
 const bot = require('../index');
-const EmbedPaginator = require('eris-pagination');
-
-
 
 module.exports.generator = async (msg) => {
     let sent = await msg.channel.createMessage('Loading linked songs....');
@@ -44,5 +41,13 @@ module.exports.options = {
 	description: 'Lists the current users who have a song linked to them.',
 	enabled: true,
 	fullDescription:'Shows a list of users with songs linked to them.',
-	usage:'',
+    usage:'',
+    guildOnly: true,
+    requirements: {
+        custom: async (msg) => {
+                const settings = await bot.db.settings.findOne({});
+                if(settings.managers.includes(msg.author.id)) return true;
+                return false;
+            }
+    }
 };
