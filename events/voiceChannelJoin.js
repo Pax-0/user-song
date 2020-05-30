@@ -17,7 +17,10 @@ async function handler(member, channel){
     // load up that song we found.
     const path = Path.resolve(__dirname, '../songs', `${member.id}.mp3`);
     let connection;
-    let currentConnection = bot.voiceConnections.find( connection => connection.channelID === channel.id);
+    let currentConnection = bot.voiceConnections.find( connection => {
+		let connectedChannel = bot.getChannel(connection.channelID);
+		return connectedChannel.guild.id === member.guild.id
+	});
     // if the bot is playing something, stop it first, then move on
     if( currentConnection && currentConnection.playing){
         currentConnection.stopPlaying();
