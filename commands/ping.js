@@ -9,6 +9,6 @@ module.exports.options = {
 	name: 'ping',
 	description: 'Pings the bot.',
 	enabled: true,
-	fullDescription:'Tests the bots latency',
+	fullDescription:'Tests the bot\'s latency',
 	usage:'',
 };
