@@ -39,7 +39,7 @@ async function loadDB(bot){
 	await bot.db.settings.load();
 	return console.log('Connected to DB!');
 }
-async function enSureSongsDirExists(){
+function enSureSongsDirExists(){
 	fs.access('./songs', fs.constants.F_OK, (err) => {
 		if(err){
 			fs.mkdir("./songs", function(err) {
