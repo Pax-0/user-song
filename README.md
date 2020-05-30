@@ -9,6 +9,7 @@ The bot will save a song, and play whenever the target user joins a voice channe
 afterwards there should be a new folder, navigate to it using `cd user-song` then: 
 
 - Rename `config_example.json` to `config.json` and paste your discord bot token in the token variable.
+-*You can pick a prefix for the bot here, fyi it responds to @mentions aswell.*
 - Run `npm install` in the console.
 - Run the bot with `node index.js` *Or any other runtime you have installed.*
 
